@@ -15,7 +15,7 @@ public class RmConfig {
 
     public static void main(String[] args) {
         Md5Token md5Token = new Md5Token();
-        System.out.println("12345 md5加密:" + md5Token.getLongToken("132456"));
+        System.out.println("132456 md5加密:" + md5Token.getLongToken("132456"));
     }
 
 

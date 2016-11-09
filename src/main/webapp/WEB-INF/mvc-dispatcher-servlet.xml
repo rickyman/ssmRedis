@@ -48,9 +48,24 @@
         <!--<context:component-scan base-package="cn.outofmemory.hellspring.transaction" >-->
         <!--</context:component-scan>-->
     </bean>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.springapp.mvc.interceptor.LoginInterceptor">
+                <property name="excludeUrlPatterns">
+                    <list>
+                        <value>/user/validate/*</value>
+                        <value>/login/**</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!-- 视图解析器 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--<property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceViewResolver"/>-->
+
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
@@ -66,5 +81,5 @@
     <!--访问静态文件-->
     <mvc:resources mapping="/html/**" location="/WEB-INF/html/"/>
     <mvc:default-servlet-handler/>
-
+    <import resource="redis-context.xml"/>
 </beans>
