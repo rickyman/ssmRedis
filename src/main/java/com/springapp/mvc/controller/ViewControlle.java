@@ -1,14 +1,12 @@
 package com.springapp.mvc.controller;
 
-import com.springapp.mvc.comon.ViewExcel;
-import com.springapp.mvc.comon.ViewPDF;
+import com.springapp.mvc.commmon.ViewExcel;
+import com.springapp.mvc.commmon.ViewPDF;
 import com.springapp.mvc.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

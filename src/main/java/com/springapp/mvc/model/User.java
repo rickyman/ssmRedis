@@ -1,68 +1,25 @@
 package com.springapp.mvc.model;
 
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
-
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 
-/**
- * Created by ruiqizhang on 1/19/16.
- */
 public class User implements Serializable {
     private static final long serialVersionUID = 1l;
 
-    private int id;
+    private Long id;
+
     private String username;
+
     private String password;
-    private Date TS;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", TS=" + TS +
-                '}';
-    }
+    private Date ts;
 
-    public Date getTS() {
-        return TS;
-    }
-
-    public void setTS(Date TS) {
-        this.TS = TS;
-    }
-
-    public User() {
-
-    }
-
-    public User(int id) {
-        this.id = id;
-    }
-
-    public User(int id, String username) {
-        this.id = id;
-        this.username = username;
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public User(int id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -71,7 +28,7 @@ public class User implements Serializable {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username == null ? null : username.trim();
     }
 
     public String getPassword() {
@@ -79,6 +36,24 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password == null ? null : password.trim();
+    }
+
+    public Date getTs() {
+        return ts;
+    }
+
+    public void setTs(Date ts) {
+        this.ts = ts;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", ts=" + ts +
+                '}';
     }
 }

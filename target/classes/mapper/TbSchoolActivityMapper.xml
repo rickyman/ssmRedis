@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springapp.mvc.mapper.TbSchoolActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.springapp.mvc.model.TbSchoolActivity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolid" jdbcType="INTEGER" />
+    <result column="discount" property="discount" jdbcType="VARCHAR" />
+    <result column="groupon" property="groupon" jdbcType="VARCHAR" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+    <result column="from_time" property="fromTime" jdbcType="TIMESTAMP" />
+    <result column="to_time" property="toTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="ts" property="ts" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, schoolId, discount, groupon, other, from_time, to_time, status, ts
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_school_activity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_school_activity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springapp.mvc.model.TbSchoolActivity" >
+    insert into tb_school_activity (id, schoolId, discount, 
+      groupon, other, from_time, 
+      to_time, status, ts
+      )
+    values (#{id,jdbcType=INTEGER}, #{schoolid,jdbcType=INTEGER}, #{discount,jdbcType=VARCHAR}, 
+      #{groupon,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{fromTime,jdbcType=TIMESTAMP}, 
+      #{toTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{ts,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.springapp.mvc.model.TbSchoolActivity" >
+    insert into tb_school_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="schoolid != null" >
+        schoolId,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="groupon != null" >
+        groupon,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+      <if test="fromTime != null" >
+        from_time,
+      </if>
+      <if test="toTime != null" >
+        to_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="ts != null" >
+        ts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="schoolid != null" >
+        #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=VARCHAR},
+      </if>
+      <if test="groupon != null" >
+        #{groupon,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="fromTime != null" >
+        #{fromTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="toTime != null" >
+        #{toTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null" >
+        #{ts,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springapp.mvc.model.TbSchoolActivity" >
+    update tb_school_activity
+    <set >
+      <if test="schoolid != null" >
+        schoolId = #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=VARCHAR},
+      </if>
+      <if test="groupon != null" >
+        groupon = #{groupon,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="fromTime != null" >
+        from_time = #{fromTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="toTime != null" >
+        to_time = #{toTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null" >
+        ts = #{ts,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springapp.mvc.model.TbSchoolActivity" >
+    update tb_school_activity
+    set schoolId = #{schoolid,jdbcType=INTEGER},
+      discount = #{discount,jdbcType=VARCHAR},
+      groupon = #{groupon,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR},
+      from_time = #{fromTime,jdbcType=TIMESTAMP},
+      to_time = #{toTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      ts = #{ts,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

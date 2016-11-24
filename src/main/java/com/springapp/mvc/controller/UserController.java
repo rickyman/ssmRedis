@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.alibaba.fastjson.JSONObject;
+import com.springapp.mvc.helper.AjaxUtil;
 import com.springapp.mvc.model.User;
 import com.springapp.mvc.service.UserService;
 import org.quickbundle.tools.support.encrypt.Md5Token;
@@ -28,32 +29,14 @@ import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("/user/")
-//@SessionAttributes(value = "user")
 public class UserController {
 
     @Resource(name = "userService")
     private UserService userService;
-    private final String LIST = "redirect:/user/detail";
     private final Md5Token md5Token = new Md5Token();
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private RedisTemplate redisTemplate;
-
-
-    //********************公共方法********************8
-    public String ajaxError(String message) {
-        JSONObject json = new JSONObject();
-        json.put("status", false);
-        json.put("message", message);
-        return json.toString();
-    }
-
-    public JSONObject ajaxSuccess() {
-        JSONObject json = new JSONObject();
-        json.put("status", true);
-        return json;
-    }
-    //************** ajax请求     ********************  */
 
     /**
      * 判断登陆用户是否合法，合法返回true，并且放入session
@@ -68,21 +51,21 @@ public class UserController {
     String validateUser(@ModelAttribute User user, HttpSession session) {
         try {
             user.setPassword(md5Token.getLongToken(user.getPassword()));
-            User loginUser = userService.login(user);
-            logger.info("validateUser get user is " + user);
+            User loginUser = userService.selectByNameAndPassword(user.getUsername(), user.getPassword());
+            logger.info("validateUser get user is " + loginUser);
             if (loginUser != null) {
-                session.setAttribute("user", user);
+                session.setAttribute("user", loginUser);
                 ListOperations<String, User> listOperations = redisTemplate.opsForList();
-                listOperations.leftPush("user", user);
+                listOperations.leftPush("user", loginUser);
                 logger.info("validateUser from redis is" + listOperations.range("user", 0, -1));
                 listOperations.getOperations().expire("user", 10, TimeUnit.MINUTES);
-                return ajaxSuccess().toString();
+                return AjaxUtil.ajaxSuccess().toString();
             }
         } catch (Exception e) {
             logger.info("validateUser Exception is " + e.getMessage());
             e.printStackTrace();
         }
-        return ajaxError("not find user!");
+        return AjaxUtil.ajaxError("not find user!");
     }
 
     /**
@@ -101,9 +84,9 @@ public class UserController {
                 logger.info("listOperations.getOperations  pop is " + listOperations.leftPop("user"));
                 logger.info("listOperations.getOperations after pop is" + listOperations.range("user", 0, -1));
             }
-            return ajaxSuccess().toString();
+            return AjaxUtil.ajaxSuccess().toString();
         } else {
-            return ajaxError("no user login !");
+            return AjaxUtil.ajaxError("no user login !");
         }
     }
 
@@ -115,120 +98,27 @@ public class UserController {
      */
     @RequestMapping("/login")
     public ModelAndView login(@ModelAttribute User user) throws Exception {
-//        if (!result.hasErrors()) {
-//            User loginUser = userService.login(user);
-//            if (loginUser != null) {
-//                session.setAttribute("USER", loginUser);
-//                return new ModelAndView(LIST);
-//            } else {
-//                return new ModelAndView("redirect:/");
-//            }
-//        } else {
-//        ModelAndView view = new ModelAndView();
-//        view.setViewName("redirect:/");
-//        view.addObject("error", result.getAllErrors());
-//        return view;
-////        }
         logger.info("'''''''''''''''''''''''''before login user!");
         ModelAndView modelAndView = new ModelAndView("/user/login");
         return modelAndView;
     }
 
-    /**
-     * 跳转至添加页
-     *
-     * @return
-     */
-    @RequestMapping(value = "/toAdd")
-    public ModelAndView toAdd() {
-        return new ModelAndView("user/add");
-    }
 
     /**
-     * 保存
-     *
-     * @param user
-     * @return
-     */
-    @RequestMapping(value = "/add")
-    public ModelAndView add(@Valid User user, BindingResult result) throws Exception {
-        if (result.hasErrors()) {
-            return new ModelAndView("user/add", "error", result.getAllErrors());
-        } else {
-            logger.info("get page vo user is:" + user);
-            String userName = user.getUsername();
-            User vo = userService.getUserByName(userName);
-            logger.info("````````````````````````query by name```````````vo" + vo);
-            if (vo != null) {
-                ModelAndView error = new ModelAndView("user/error");
-                error.addObject("error", "用户" + userName + "已存在，不能添加");
-                return error;
-            }
-            logger.info("add result is " + userService.addUser(user));
-            return new ModelAndView(LIST);
-        }
-    }
-
-    /**
-     * 根据ID删除
+     * 用户详情
      *
      * @param id
      * @return
      */
-    @RequestMapping(value = "/delete/{id}")
-    public ModelAndView delete(@PathVariable int id) throws Exception {
-        userService.deleteUser(id);
-        return new ModelAndView(LIST);
+    @ResponseBody
+    @RequestMapping("{id}")
+    String getSchoolList(@PathVariable Long id) {
+        JSONObject json = new JSONObject();
+
+        //todo
+
+        return json.toString();
     }
 
-    /**
-     * 跳转至编辑页面
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "/edit/{id}")
-    public ModelAndView edit(@PathVariable int id) throws Exception {
-        User user = userService.getUserById(id);
-        return new ModelAndView("user/edit", "user", user);
-    }
 
-    /**
-     * 编辑
-     *
-     * @param user
-     * @return
-     */
-    @RequestMapping(value = "/edit")
-    public ModelAndView update(@Valid User user, BindingResult result) throws Exception {
-        ModelAndView view = new ModelAndView();
-        if (result.hasErrors()) {
-            logger.info("Valid error!");
-            view.addObject("error", result.getAllErrors());
-            view.setViewName("user/edit");
-            return view;
-        } else {
-            logger.info(",,,,,,,,,,,before add user!");
-            userService.updateUser(user);
-            return new ModelAndView(LIST);
-        }
-    }
-
-    /**
-     * 详情
-     */
-    @RequestMapping(value = "/detail/{name}")
-    public ModelAndView detail(@PathVariable String name) {
-        ModelAndView modelAndView = new ModelAndView("user/detail");
-        User user = null;
-        try {
-            user = userService.getUserByName(name);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        modelAndView.addObject("message", user);
-        logger.info("....................detail user is" + user);
-        return modelAndView;
-
-    }
 }
