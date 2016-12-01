@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.springapp.mvc.helper.AjaxUtil;
 import com.springapp.mvc.model.User;
 import com.springapp.mvc.service.UserService;
-import org.quickbundle.tools.support.encrypt.Md5Token;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,8 @@ public class UserController {
 
     @Resource(name = "userService")
     private UserService userService;
-    private final Md5Token md5Token = new Md5Token();
+
+    
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private RedisTemplate redisTemplate;
@@ -50,7 +51,7 @@ public class UserController {
     @ResponseBody
     String validateUser(@ModelAttribute User user, HttpSession session) {
         try {
-            user.setPassword(md5Token.getLongToken(user.getPassword()));
+            user.setPassword(DigestUtils.md5Hex(user.getPassword()));
             User loginUser = userService.selectByNameAndPassword(user.getUsername(), user.getPassword());
             logger.info("validateUser get user is " + loginUser);
             if (loginUser != null) {

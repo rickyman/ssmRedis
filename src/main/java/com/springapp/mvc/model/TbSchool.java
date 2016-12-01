@@ -15,7 +15,7 @@ public class TbSchool implements Serializable {
 
     private String logo;
 
-    private Integer order;
+    private Integer order_no;
 
     private Date regTime;
 
@@ -26,6 +26,8 @@ public class TbSchool implements Serializable {
     private String fee;
 
     private String noitice;
+
+    private String level;
 
     private Integer status;
 
@@ -69,19 +71,19 @@ public class TbSchool implements Serializable {
         this.logo = logo == null ? null : logo.trim();
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getOrder_no() {
+        return order_no;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setOrder_no(Integer order_no) {
+        this.order_no = order_no;
     }
 
     public Date getRegTime() {
         return regTime;
     }
 
-    public void setRegTime(Date regTime) {
+    public void setRegTime(java.sql.Timestamp regTime) {
         this.regTime = regTime;
     }
 
@@ -117,7 +119,13 @@ public class TbSchool implements Serializable {
         this.noitice = noitice == null ? null : noitice.trim();
     }
 
+    public String getLevel() {
+        return level;
+    }
 
+    public void setLevel(String level) {
+        this.level = level == null ? null : level.trim();
+    }
 
     public Integer getStatus() {
         return status;
@@ -135,12 +143,13 @@ public class TbSchool implements Serializable {
                 ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
                 ", logo='" + logo + '\'' +
-                ", order=" + order +
+                ", order_no=" + order_no +
                 ", regTime=" + regTime +
                 ", ts=" + ts +
                 ", tag='" + tag + '\'' +
                 ", fee='" + fee + '\'' +
                 ", noitice='" + noitice + '\'' +
+                ", noitice='" + level + '\'' +
                 ", status=" + status +
                 '}';
     }

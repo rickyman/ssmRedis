@@ -7,17 +7,33 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class AjaxUtil {
 
-
+    /**
+     * 所有请求不合法
+     */
     public static String ajaxError(String message) {
         JSONObject json = new JSONObject();
         json.put("status", false);
         json.put("message", message);
         return json.toString();
     }
-
-    public static JSONObject ajaxSuccess() {
+   /**
+    * 
+    * 所有请求合法
+    */
+   
+    public  static JSONObject ajaxSuccess() {
         JSONObject json = new JSONObject();
         json.put("status", true);
         return json;
     }
+    
+/*    JSONObject json=ajaxSuccess();
+    json.put("data",List<String> );
+    json.put("total",);
+    
+    
+    ...
+    return json.toString();  */
+    
+    
 }
