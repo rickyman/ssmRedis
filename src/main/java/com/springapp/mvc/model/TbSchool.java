@@ -15,7 +15,7 @@ public class TbSchool implements Serializable {
 
     private String logo;
 
-    private Integer order_no;
+    private Integer orderNo;
 
     private Date regTime;
 
@@ -71,12 +71,12 @@ public class TbSchool implements Serializable {
         this.logo = logo == null ? null : logo.trim();
     }
 
-    public Integer getOrder_no() {
-        return order_no;
+    public Integer getOrderNo() {
+        return orderNo;
     }
 
-    public void setOrder_no(Integer order_no) {
-        this.order_no = order_no;
+    public void setOrderNo(Integer orderNo) {
+        this.orderNo = orderNo;
     }
 
     public Date getRegTime() {
@@ -143,7 +143,7 @@ public class TbSchool implements Serializable {
                 ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
                 ", logo='" + logo + '\'' +
-                ", order_no=" + order_no +
+                ", orderNo=" + orderNo +
                 ", regTime=" + regTime +
                 ", ts=" + ts +
                 ", tag='" + tag + '\'' +
