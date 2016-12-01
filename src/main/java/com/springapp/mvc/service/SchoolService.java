@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SchoolService {
     @Autowired
     private TbSchoolMapper tbSchoolDao;
-   //根据学校ID查询学校信息
+   //根据学校ID查询学校详细信息
     public  TbSchool selectByPrimaryKey(Integer id) throws  Exception{
         return tbSchoolDao.selectByPrimaryKey(id);
     }
