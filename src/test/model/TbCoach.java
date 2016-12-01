@@ -1,7 +1,7 @@
 package test.model;
 
 import java.util.Date;
-//教练
+
 public class TbCoach {
     private Integer id;
 
