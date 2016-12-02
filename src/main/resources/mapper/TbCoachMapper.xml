@@ -9,12 +9,12 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="school" property="school" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="INTEGER" />
-    <result column="orderNo" property="orderno" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNO" jdbcType="INTEGER" />
     <result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
     <result column="ts" property="ts" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_type, user_name, mobile, address, school, state, orderNo, reg_time, ts
+    id, user_type, user_name, mobile, address, school, state, order_no, reg_time, ts
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -29,11 +29,11 @@
   <insert id="insert" parameterType="com.springapp.mvc.model.TbCoach" >
     insert into tb_coach (id, user_type, user_name, 
       mobile, address, school, 
-      state, orderNo, reg_time, 
+      state, order_no, reg_time, 
       ts)
     values (#{id,jdbcType=INTEGER}, #{userType,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
-      #{state,jdbcType=INTEGER}, #{orderno,jdbcType=INTEGER}, #{regTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER}, #{orderNO,jdbcType=INTEGER}, #{regTime,jdbcType=TIMESTAMP},
       #{ts,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.springapp.mvc.model.TbCoach" >
@@ -60,8 +60,8 @@
       <if test="state != null" >
         state,
       </if>
-      <if test="orderno != null" >
-        orderNo,
+      <if test="orderNO != null" >
+        order_no,
       </if>
       <if test="regTime != null" >
         reg_time,
@@ -92,8 +92,8 @@
       <if test="state != null" >
         #{state,jdbcType=INTEGER},
       </if>
-      <if test="orderno != null" >
-        #{orderno,jdbcType=INTEGER},
+      <if test="orderNO != null" >
+        #{orderNo,jdbcType=INTEGER},
       </if>
       <if test="regTime != null" >
         #{regTime,jdbcType=TIMESTAMP},
@@ -124,8 +124,8 @@
       <if test="state != null" >
         state = #{state,jdbcType=INTEGER},
       </if>
-      <if test="orderno != null" >
-        orderNo = #{orderno,jdbcType=INTEGER},
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=INTEGER},
       </if>
       <if test="regTime != null" >
         reg_time = #{regTime,jdbcType=TIMESTAMP},
@@ -144,7 +144,7 @@
       address = #{address,jdbcType=VARCHAR},
       school = #{school,jdbcType=VARCHAR},
       state = #{state,jdbcType=INTEGER},
-      orderNo = #{orderno,jdbcType=INTEGER},
+      order_no = #{orderNo,jdbcType=INTEGER},
       reg_time = #{regTime,jdbcType=TIMESTAMP},
       ts = #{ts,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

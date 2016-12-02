@@ -11,19 +11,19 @@ package com.springapp.mvc.commmon;
 import java.io.Serializable;
 import java.util.List;
 
-public class PageIterator<Object> implements Serializable {
+public class PageIterator<T> implements Serializable {
     private static final long serialVersionUID = 1100034894592704355L;
     private int page;
     private int pageSize;
     private int totalPages;
     private int totalCount;
     private String params;
-    private List<Object> data;
+    private List<T> data;
 
     public PageIterator() {
     }
 
-    public static <Object> PageIterator<Object> createInstance(int page, int pageSize, int totalCount) {
+    public static <T> PageIterator<T> createInstance(int page, int pageSize, int totalCount) {
         PageIterator pageBean = new PageIterator();
         pageBean.setTotalCount(totalCount);
         pageBean.setTotalPages((totalCount + pageSize - 1) / pageSize);
@@ -41,7 +41,7 @@ public class PageIterator<Object> implements Serializable {
         return pageBean;
     }
 
-    public static <Object> PageIterator<Object> createInstance(int page, int pageSize, List<Object> data) {
+    public static <T> PageIterator<T> createInstance(int page, int pageSize, List<T> data) {
         PageIterator pageBean = new PageIterator();
         if (data != null && data.size() > 0) {
             pageBean.setTotalCount(data.size());
@@ -102,15 +102,15 @@ public class PageIterator<Object> implements Serializable {
         this.params = params;
     }
 
-    public List<Object> getData() {
+    public List<T> getData() {
         return this.data;
     }
 
-    public void setData(List<Object> data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 
-    public List<Object> getPageList(int pageNum) {
+    public List<T> getPageList(int pageNum) {
         if (this.data == null) {
             return null;
         } else {

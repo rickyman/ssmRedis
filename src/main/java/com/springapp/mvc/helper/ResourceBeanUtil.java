@@ -7,6 +7,7 @@ import net.sf.json.JSONObject;
 import org.springframework.util.CollectionUtils;
 
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,6 +30,7 @@ public class ResourceBeanUtil {
         PageIterator<SubjectVo> pageIterator = getPageIterator(list, 10);
         System.out.print("pageIterator is" + pageIterator.getPageList(2));
     }
+
     public static PageIterator getPageIterator(Collection objects, Integer pageSize) {
         PageIterator pageIterator = new PageIterator();
         if (CollectionUtils.isEmpty(objects)) {
@@ -56,6 +58,7 @@ public class ResourceBeanUtil {
                 StringBuffer json = new StringBuffer();
                 String lineTxt = null;
                 while ((lineTxt = bufferedReader.readLine()) != null) {
+                    lineTxt = URLEncoder.encode(lineTxt, "utf-8");
                     json.append(lineTxt);
                 }
                 read.close();

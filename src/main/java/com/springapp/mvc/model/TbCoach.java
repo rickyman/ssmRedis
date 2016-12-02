@@ -19,7 +19,7 @@ public class TbCoach implements Serializable {
 
     private Integer state;
 
-    private Integer orderno;
+    private Integer orderNO;
 
     private Date regTime;
 
@@ -81,12 +81,12 @@ public class TbCoach implements Serializable {
         this.state = state;
     }
 
-    public Integer getOrderno() {
-        return orderno;
+    public Integer getorderNO() {
+        return orderNO;
     }
 
-    public void setOrderno(Integer orderno) {
-        this.orderno = orderno;
+    public void setorderNO(Integer orderNO) {
+        this.orderNO = orderNO;
     }
 
     public Date getRegTime() {
@@ -115,7 +115,7 @@ public class TbCoach implements Serializable {
                 ", address='" + address + '\'' +
                 ", school='" + school + '\'' +
                 ", state=" + state +
-                ", orderno=" + orderno +
+                ", orderNO=" + orderNO +
                 ", regTime=" + regTime +
                 ", ts=" + ts +
                 '}';
