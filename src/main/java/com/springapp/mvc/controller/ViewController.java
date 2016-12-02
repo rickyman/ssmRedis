@@ -1,7 +1,7 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.commmon.ViewExcel;
-import com.springapp.mvc.commmon.ViewPDF;
+//import com.springapp.mvc.commmon.ViewPDF;
 import com.springapp.mvc.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  */
 @Controller
 @RequestMapping("/user/view")
-public class ViewControlle {
+public class ViewController {
 
 
     @RequestMapping(value = "/export")
@@ -50,7 +50,8 @@ public class ViewControlle {
         list.add("test1");
         list.add("test2");
         model.put("list", list);
-        ViewPDF viewPDF = new ViewPDF();
-        return new ModelAndView(viewPDF, model);
+        return  null;
+//        ViewPDF viewPDF = new ViewPDF();
+//        return new ModelAndView(viewPDF, model);
     }
 }

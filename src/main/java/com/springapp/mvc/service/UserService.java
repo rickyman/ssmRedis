@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Service //将erUserService类注入到bean里面
+@Service //将UserService类注入到bean里面
 @Transactional  //注入事务管理
 public class UserService {
     @Autowired

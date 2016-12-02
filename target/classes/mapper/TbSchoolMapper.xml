@@ -7,7 +7,7 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="logo" property="logo" jdbcType="VARCHAR" />
-    <result column="order_no" property="order_no" jdbcType="INTEGER" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
     <result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
     <result column="ts" property="ts" jdbcType="TIMESTAMP" />
     <result column="tag" property="tag" jdbcType="VARCHAR" />
@@ -17,7 +17,7 @@
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, address, description, logo, order_no, reg_time, ts, tag, fee, noitice, level,
+    id, name, address, description, logo, sequence, reg_time, ts, tag, fee, noitice, level,
     status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
