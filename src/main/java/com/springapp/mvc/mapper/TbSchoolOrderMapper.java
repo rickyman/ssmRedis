@@ -1,6 +1,6 @@
-package test.dao;
+package com.springapp.mvc.mapper;
 
-import test.model.TbSchoolOrder;
+import com.springapp.mvc.model.TbSchoolOrder;
 
 public interface TbSchoolOrderMapper {
     int deleteByPrimaryKey(Integer id);
