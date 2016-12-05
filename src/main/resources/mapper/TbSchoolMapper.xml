@@ -7,7 +7,7 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="logo" property="logo" jdbcType="VARCHAR" />
-    <result column="order_no" property="order_no" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="INTEGER" />
     <result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
     <result column="ts" property="ts" jdbcType="TIMESTAMP" />
     <result column="tag" property="tag" jdbcType="VARCHAR" />
@@ -185,4 +185,10 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="orderByFee" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_school
+    ORDER BY fee+0;
+  </select>
 </mapper>
