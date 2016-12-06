@@ -185,10 +185,10 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="orderByFee" resultMap="BaseResultMap">
+<!--  <select id="orderByFee" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from tb_school
     ORDER BY fee+0;
-  </select>
+  </select>-->
 </mapper>

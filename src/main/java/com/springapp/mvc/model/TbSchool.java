@@ -5,31 +5,31 @@ import java.util.Date;
 
 public class TbSchool implements Serializable {
     private static final long serialVersionUID = 1l;
-    private Integer id;
+    protected Integer id;
 
-    private String name;
+    protected String name;
 
-    private String address;
+    protected String address;
 
-    private String description;
+    protected String description;
 
-    private String logo;
+    protected String logo;
 
-    private Integer orderNo;
+    protected Integer orderNo;
 
-    private Date regTime;
+    protected Date regTime;
 
-    private Date ts;
+    protected Date ts;
 
-    private String tag;
+    protected String tag;
 
-    private String fee;
+    protected String fee;
 
-    private String noitice;
+    protected String noitice;
 
-    private String level;
+    protected String level;
 
-    private Integer status;
+    protected Integer status;
 
     public Integer getId() {
         return id;
@@ -149,7 +149,7 @@ public class TbSchool implements Serializable {
                 ", tag='" + tag + '\'' +
                 ", fee='" + fee + '\'' +
                 ", noitice='" + noitice + '\'' +
-                ", noitice='" + level + '\'' +
+                ", level='" + level + '\'' +
                 ", status=" + status +
                 '}';
     }

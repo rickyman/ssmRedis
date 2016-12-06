@@ -20,6 +20,4 @@ public interface TbSchoolMapper {
     int updateByPrimaryKeySelective(TbSchool record);
 
     int updateByPrimaryKey(TbSchool record);
-
-    List<TbSchool> orderByFee();
 }

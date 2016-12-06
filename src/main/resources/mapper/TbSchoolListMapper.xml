@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springapp.mvc.mapper.TbSchoolListMapper" >
+    <resultMap id="UnionShoolAndOrder" type="com.springapp.mvc.model.TbSchoolList" extends="com.springapp.mvc.mapper.TbSchoolMapper.BaseResultMap">
+        <result column="numberOfAppli" property="numberOfAppli" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, name, address, description, logo, order_no, reg_time, ts, tag, fee, noitice, level,
+        status
+    </sql>
+
+    <select id="orderByFee" resultMap="UnionShoolAndOrder">
+        select school_order.numberOfAppli,
+        <include refid="Base_Column_List" />
+        from tb_school  left join
+        (select school_id,count(id) numberOfAppli from tb_school_order group by school_id) school_order
+        on tb_school.id=school_order.school_id order by fee+0;
+    </select>
+
+    <select id="orderByOrders" resultMap="UnionShoolAndOrder">
+        select school_order.numberOfAppli,
+        <include refid="Base_Column_List" />
+        from tb_school  left join
+        (select school_id,count(id) numberOfAppli from tb_school_order group by school_id) school_order
+        on tb_school.id=school_order.school_id order by school_order.numberOfAppli desc;
+    </select>
+
+    <select id="selectSchoolByName" resultMap="UnionShoolAndOrder" parameterType="java.lang.String">
+        select school_order.numberOfAppli,
+        <include refid="Base_Column_List" />
+        from
+        (select tb_school.* from tb_school WHERE tb_school.name LIKE concat('%',#{name,jdbcType=VARCHAR},'%')) school_name  left join
+        (select school_id,count(id) numberOfAppli from tb_school_order group by school_id) school_order
+        on school_name.id=school_order.school_id order by school_name.fee desc;
+    </select>
+</mapper>

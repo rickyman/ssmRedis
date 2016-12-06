@@ -5,6 +5,7 @@ import com.springapp.mvc.commmon.PageIterator;
 import com.springapp.mvc.helper.AjaxUtil;
 import com.springapp.mvc.model.SchoolCondition;
 import com.springapp.mvc.model.TbSchool;
+import com.springapp.mvc.model.TbSchoolList;
 import com.springapp.mvc.service.SchoolService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,17 +47,21 @@ public class SchoolController {
     @RequestMapping("list")
     String getSchoolList(SchoolCondition condition) {
         JSONObject json = new JSONObject();
-        //分页最后写
-       /* List<JSONObject> result = new ArrayList<JSONObject>();
-        PageIterator<JSONObject> page = new PageIterator<JSONObject>();*/
-
         try {
+            //测试
+            condition=new SchoolCondition();
+            condition.setUserAddress("116.361828,39.949653");
+            condition.setIsfee(1);
+            condition.setDistance(20);
 
+            List<TbSchoolList> tbSchools=schoolService.getSchoolByCondition(condition);
+            if(tbSchools!=null)
+                return new JSONObject().toJSONString(tbSchools);
         } catch (Exception e) {
             logger.info("getShoolList Exception is " + e.getMessage());
             e.printStackTrace();
         }
-        return AjaxUtil.ajaxError("抱歉，您的附近还未有签约驾校!");
+        return AjaxUtil.ajaxError("抱歉，未有符合该请求的签约驾校!");
     }
 
     /**
@@ -66,7 +71,7 @@ public class SchoolController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
+    @RequestMapping(value = "id/{id}", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
     String getSchoolList(@PathVariable Integer id) {
         try {
             TbSchool tbSchool = schoolService.selectByPrimaryKey(id);
@@ -82,25 +87,23 @@ public class SchoolController {
     }
 
     /**
-     *根据学校名称查询
-     * @param id
+     *根据学校名称查询   记得分页
+     * @param
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "querySchoolByName/{name}", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
-    String querySchoolByName(@PathVariable Integer id) {
-        // todo
-/*        try {
-            TbSchool tbSchool = schoolService.selectByPrimaryKey(id);
-            logger.info("query1School by id " + tbSchool);
-            if (tbSchool != null) {
-                return new JSONObject().toJSONString(tbSchool);
-            }
+    @RequestMapping("name/")
+    String getSchoolListByName(SchoolCondition condition,String name) {
+        JSONObject json = new JSONObject();
+        try {
+            List<TbSchoolList> tbSchools=schoolService.selectSchoolByName(name);
+            schoolService.getDistance(tbSchools,condition);
+            if(tbSchools!=null)
+                 return new JSONObject().toJSONString(tbSchools);
         } catch (Exception e) {
-            logger.info("query1School Exception is " + e.getMessage());
+            logger.info("getSchoolListByName Exception is " + e.getMessage());
             e.printStackTrace();
         }
-        return AjaxUtil.ajaxError("not find the schoolID!");*/
-        return null;
+        return AjaxUtil.ajaxError("抱歉，未有符合该请求的签约驾校!");
     }
 }
