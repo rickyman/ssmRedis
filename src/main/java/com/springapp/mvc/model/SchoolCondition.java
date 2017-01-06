@@ -14,7 +14,7 @@ public class SchoolCondition implements Serializable {
     private  int  isDistance;//按照距离最近进行排序  1为true  0为false
     private  int isNumberOfAppli;//按照驾校的报名人数排序  1为true  0为false
     private  int  isfee;//按照驾校价格进行排序 1为true  0为false
-    private  double distance;//距离范围内进行查询 0表示全城 3为3km 5为5km  10为10km 20 为20km
+    private  double distance;//距离范围内进行查询 0表示全城 3为3km 5为5km  10为10km 20为20km
 
     public SchoolCondition() {
     }
