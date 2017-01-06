@@ -3,6 +3,7 @@ package com.springapp.mvc.mapper;
 import com.springapp.mvc.model.SchoolCondition;
 import com.springapp.mvc.model.TbSchool;
 import com.springapp.mvc.model.TbSchool;
+import com.springapp.mvc.model.TbSchoolList;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface TbSchoolMapper {
     int updateByPrimaryKeySelective(TbSchool record);
 
     int updateByPrimaryKey(TbSchool record);
+
+
+
 }
