@@ -18,4 +18,10 @@ public interface TbSchoolListMapper {
 
     //根据学校名称查询学校列表 获得学校的订单数目 并按照费用排序
     List<TbSchoolList> selectSchoolByName(String name);
+
+    //查询所有的学校
+    List<TbSchoolList> selectAllTbSchool();
+
+    //根据Id查询学校 获得学校的订单数目
+    TbSchoolList selectByPrimaryKey(int id);
 }
