@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 用户查询学校列表的返回结果
  * Created by feige on 2016/12/6.
  */
-public class TbSchoolList extends TbSchool implements Serializable {
+public class TbSchoolList extends TbSchool implements Serializable,Comparable<TbSchoolList> {
     private static final long serialVersionUID = 1l;
 
     private  int numberOfAppli;//驾校的报名人数
@@ -56,5 +56,14 @@ public class TbSchoolList extends TbSchool implements Serializable {
                 ", numberOfAppli=" + numberOfAppli +
                 ", distance=" + distance +
                 '}';
+    }
+    //排序
+    public int compareTo(TbSchoolList o) {
+        if(this.getDistance()<o.getDistance())
+            return -1;
+        else if(this.getDistance()>o.getDistance())
+            return 1;
+        else
+            return 0;
     }
 }
