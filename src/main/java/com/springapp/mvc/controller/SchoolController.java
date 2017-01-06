@@ -3,6 +3,7 @@ package com.springapp.mvc.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.springapp.mvc.commmon.PageIterator;
 import com.springapp.mvc.helper.AjaxUtil;
+import com.springapp.mvc.helper.GetDistance;
 import com.springapp.mvc.model.SchoolCondition;
 import com.springapp.mvc.model.TbSchool;
 import com.springapp.mvc.model.TbSchoolList;
@@ -48,11 +49,12 @@ public class SchoolController {
     String getSchoolList(SchoolCondition condition) {
         JSONObject json = new JSONObject();
         try {
-            //测试
+            //测试.......................开始  测试完删除//
             condition=new SchoolCondition();
             condition.setUserAddress("116.361828,39.949653");
             condition.setIsfee(1);
-            condition.setDistance(20);
+            condition.setDistance(0);
+            //测试.......................结束//
 
             List<TbSchoolList> tbSchools=schoolService.getSchoolByCondition(condition);
             if(tbSchools!=null)
@@ -71,12 +73,13 @@ public class SchoolController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "id/{id}", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
-    String getSchoolList(@PathVariable Integer id) {
+    @RequestMapping("id/")
+    String getSchoolList(SchoolCondition condition,Integer id) {
         try {
-            TbSchool tbSchool = schoolService.selectByPrimaryKey(id);
-            logger.info("query1School by id " + tbSchool);
-            if (tbSchool != null) {
+            TbSchoolList tbSchool = schoolService.selectByPrimaryKey(id);
+            //计算距离
+            if (tbSchool != null && condition != null) {
+                tbSchool.setDistance(GetDistance.getGeoDis(tbSchool.getAddress(), condition.getUserAddress()));
                 return new JSONObject().toJSONString(tbSchool);
             }
         } catch (Exception e) {
@@ -97,7 +100,7 @@ public class SchoolController {
         JSONObject json = new JSONObject();
         try {
             List<TbSchoolList> tbSchools=schoolService.selectSchoolByName(name);
-            schoolService.getDistance(tbSchools,condition);
+            schoolService.getDistance(tbSchools,condition);//没有距离过滤 只是计算了距离
             if(tbSchools!=null)
                  return new JSONObject().toJSONString(tbSchools);
         } catch (Exception e) {
