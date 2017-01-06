@@ -15,7 +15,7 @@
         <include refid="Base_Column_List" />
         from tb_school  left join
         (select school_id,count(id) numberOfAppli from tb_school_order group by school_id) school_order
-        on tb_school.id=school_order.school_id order by fee+0;
+        on tb_school.id=school_order.school_id where tb_school.fee!='' and tb_school.fee!=0 order by fee+0;
     </select>
 
     <select id="orderByOrders" resultMap="UnionShoolAndOrder">
@@ -32,6 +32,19 @@
         from
         (select tb_school.* from tb_school WHERE tb_school.name LIKE concat('%',#{name,jdbcType=VARCHAR},'%')) school_name  left join
         (select school_id,count(id) numberOfAppli from tb_school_order group by school_id) school_order
-        on school_name.id=school_order.school_id order by school_name.fee desc;
+        on school_name.id=school_order.school_id where school_name.fee!='' and school_name.fee!=0 order by school_name.fee+0;
+    </select>
+
+    <select id="selectAllTbSchool" resultMap="UnionShoolAndOrder">
+        select
+        <include refid="Base_Column_List" />
+        from tb_school;
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="UnionShoolAndOrder" parameterType="java.lang.Integer">
+        select school_order.numberOfAppli,
+        <include refid="Base_Column_List" />
+        from
+        (select school_id,count(id) numberOfAppli from tb_school_order where school_id = #{id,jdbcType=INTEGER}) school_order,tb_school where tb_school.id=school_order.school_id;
     </select>
 </mapper>
